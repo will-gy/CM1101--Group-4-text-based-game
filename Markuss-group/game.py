@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from map import 
+from map import sdkjjh
 from player import *
 from items import *
 from gameparser import *
