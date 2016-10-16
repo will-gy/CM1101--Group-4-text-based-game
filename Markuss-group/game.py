@@ -5,7 +5,7 @@ from player import *
 from items import *
 from gameparser import *
 from random import randint
-adasdasds
+
 
 random_number = randint(0,10)
 guard_probs = 1
