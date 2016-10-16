@@ -6,11 +6,10 @@ from items import *
 from gameparser import *
 from random import randint
 
-
-random_number = randint(0,10)       #Generates random number form 1-10
+random_number = randint(0,10)
 guard_probs = 1
 guard = False
-
+warden = False  #boolean values for guard and warden
 
 
 def Guard_in_the_room():            ##sets the boolean value for guard on 10% propability
@@ -105,15 +104,20 @@ def print_room(room):
     # Display room description
     print(room["description"])
     print()
-    print_room_items(room)
-    # check if room is courtyard here, pls
-    po = Guard_in_the_room()
-    if po is True:
-        print()
-        print("YOU HAVE MET A GUARD")
-        print()
-    else:
-        pass
+    print_room_items(room)              #makes sure that guard is not generated along with the warden
+    if room["name"] != "Courtyard":
+     po = Guard_in_the_room()
+     if po is True:
+         print()
+         print("YOU HAVE MET A GUARD")
+         print()
+     else:
+         warden = True
+         print("YOU SEE THE PRISON WARDEN HERE")
+         print()
+         print("HE HOLDS THE  KEY TO ESCAPE FROM THIS WRETCHED PLACE")
+            ##GONNA NEED ANOTHER FUCNTION FOR GETTING THE KEY OF THE GUARD OR UPADETE THE TRICK FUCTION OR MAYBE BOTH
+
 
 
 def exit_leads_to(exits, direction):
@@ -222,6 +226,8 @@ def execute_go(direction):
      return current_room
     else:
         print ("YOU CANNOT RUN FROM THE WARDEN")
+def execute_steal():
+    #something something
 
 
 def execute_take(item_id):
@@ -230,7 +236,7 @@ def execute_take(item_id):
     there is no such item in the room, this function prints
     "You cannot take that."
     """
-    z= 0
+    z=0
     b=0
     for x in current_room["items"]:
      if item_id == x["id"]:
@@ -259,11 +265,14 @@ def execute_drop(item_id):
 
     if b == 0:
         print("you cannot drop that")
+
 #def execute_trick():
     #dfjfhdsjfs
     
 #def execute_kill():
-    #hjgj
+    #hjgj\
+#def execute_steal_key():
+
 def execute_command(command):
     """This function takes a command (a list of words as returned by
     normalise_input) and, depending on the type of action (the first word of
@@ -302,7 +311,11 @@ def execute_command(command):
             execute_kill()
         else:
             print("Kill who?")
-
+    elif command[0] == "steal":
+        if len (command)>1:
+            execute_steal()
+        else:
+           print ("Steal what?")
     else:
         print("This makes no sense.")
 
