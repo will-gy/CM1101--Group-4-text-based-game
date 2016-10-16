@@ -7,7 +7,7 @@ from gameparser import *
 from random import randint
 
 
-random_number = randint(0,10)
+random_number = randint(0,10)       #Generates random number form 1-10
 guard_probs = 1
 guard = False
 
