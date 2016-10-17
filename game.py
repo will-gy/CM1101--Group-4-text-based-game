@@ -5,7 +5,7 @@ from player import *
 from items import *
 from gameparser import *
 from random import *
-from Intro import *
+from intro_animation import *
 from GameOver import *
 
 
