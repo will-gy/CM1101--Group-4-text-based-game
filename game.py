@@ -181,7 +181,7 @@ def execute_take(item_id):
     if item_id == x["id"]:
      if x["id"] == "soap":
          print ("game over")
-         gameover()
+         game_over()
          exit()
 
      inventory.append(x)
