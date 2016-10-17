@@ -24,25 +24,45 @@ def Guard_in_the_room():            ##sets the boolean value for guard on 10% pr
 po = Guard_in_the_room() ##gets the value from Guard in the room func
 
 
+
+def execute_kill(weapon):
+    "This function takes a weapon as input, and returns True if guard is killed"
+
+    #chance is a random number 1-5
+    chance = randint(1,5)
+
+    if weapon not in inventory:
+        print("You do not have that weapon, try again")
+
+    else: 
+        #chance multiplied by x gives kill value
+        if weapon == "shank":
+            kill_value = chance * 1.5
+        elif weapon == "butter knife":
+            kill_value = chance * 1.1
+        else:  #no weapon
+            kill_value = chance * 1
+
+        #if kill_value is greaters than x, then guard is dead 
+        if kill_value >= 3:
+            return True  #return true if guard is killed?
+        else:
+            return False
+
+execute_kill("shank")
+
+
+
+
 def list_of_items(items):
 
     """This function takes a list of items (see items.py for the definition) and
     returns a comma-separated list of item names (as a string). For example:
 
-    >>> list_of_items([item_pen, item_handbook])
-    'a pen, a student handbook'
-
-    >>> list_of_items([item_id])
-    'id card'
-
-    >>> list_of_items([])
-    ''
-
     >>> list_of_items([item_money, item_handbook, item_laptop])
     'money, a student handbook, laptop'
 
     """
-    pass
     empt_str = ""
     place_ho = []
     for x in items:
@@ -50,6 +70,7 @@ def list_of_items(items):
         place_ho.append(empt_str)
     liststr = ", ".join(place_ho)
     return liststr
+
 
 def print_room_items(room):
     """This function takes a room as an input and nicely displays a list of items
@@ -61,25 +82,10 @@ def print_room_items(room):
     >>> print_room_items(rooms["Reception"])
     There is a pack of biscuits, a student handbook here.
     <BLANKLINE>
-
-    >>> print_room_items(rooms["Office"])
-    There is a pen here.
-    <BLANKLINE>
-
-    >>> print_room_items(rooms["Admins"])
-
-    (no output)
-
-    Note: <BLANKLINE> here means that doctest should expect a blank line.
-
     """
-    pass
-    itemss = list_of_items(room["items"])
-    if itemss != "":
-        print ("There is " + itemss + " here.\n")
-    else:
-        pass
-
+    items_str = list_of_items(room["items"])
+    if items_str != "":
+        print ("There is " + items_str + " here.\n")
 
 
 def print_inventory_items(items):
@@ -92,10 +98,11 @@ def print_inventory_items(items):
     <BLANKLINE>
 
     """
-    pass
 
-    pol = list_of_items(items)
-    print ("You have " + pol + ".\n" )
+    list_str = list_of_items(items)
+    if inventory != []:
+        print ("You have " + list_str + ".\n" )
+
 
 def print_room(room):
 
@@ -182,11 +189,11 @@ def print_menu(exits, room_items, inv_items):
     for direction in exits:
         # Print the exit name and where it leads to
         print_exit(direction, exit_leads_to(exits, direction))
-    for it in room_items:
-        print ("TAKE " + (it["id"]).upper() + " to take " + it["name"] + ".")
-    for pog in inv_items:
-        print ("DROP " + (pog["id"]).upper() + " to drop " + pog["name"] + ".")
-    
+    for x in room_items:
+        print ("TAKE " + (x["id"]).upper() + " to take " + x["name"] + ".")
+    for y in inv_items:
+        print ("DROP " + (y["id"]).upper() + " to drop " + y["name"] + ".")
+
     print("What do you want to do?")
 
 
@@ -217,9 +224,10 @@ def execute_go(direction):
     """
     global current_room
     if po is False:
-     current = current_room["exits"][direction]
-     current_room = rooms[current]
-     return current_room
+        current = current_room["exits"][direction]
+        current_room = rooms[current]
+        return current_room
+    
     else:
         print ("YOU CANNOT RUN FROM THE WARDEN")
 
@@ -231,7 +239,7 @@ def execute_take(item_id):
     "You cannot take that."
     """
     z= 0
-    b=0
+    b= 0
     for x in current_room["items"]:
      if item_id == x["id"]:
       inventory.append(x)
@@ -251,19 +259,26 @@ def execute_drop(item_id):
     no such item in the inventory, this function prints "You cannot drop that."
     """
     b =0
-    for x in inventory:
-        if item_id == x["id"]:
-            inventory.remove(x)
+    for inv_item in inventory:
+        if item_id == inv_item["id"]:
+            inventory.remove(inv_item)
             b = b +1
-            current_room["items"].append(x)
+            current_room["items"].append(inv_item)
 
     if b == 0:
         print("you cannot drop that")
+
+
 #def execute_trick():
     #dfjfhdsjfs
+
+
+
     
 #def execute_kill():
     #hjgj
+
+
 def execute_command(command):
     """This function takes a command (a list of words as returned by
     normalise_input) and, depending on the type of action (the first word of
@@ -292,11 +307,13 @@ def execute_command(command):
             execute_drop(command[1])
         else:
             print("Drop what?")
+
     elif command[0] == "trick":
         if len(command) >1:
             execute_trick()
         else:
             print("trick who?")
+
     elif command[0] == "kill":
         if len(command)>1:
             execute_kill()
@@ -305,6 +322,8 @@ def execute_command(command):
 
     else:
         print("This makes no sense.")
+
+
 
 
 def menu(exits, room_items, inv_items):
@@ -365,5 +384,6 @@ def main():
 # Are we being run as a script? If so, run main().
 # '__main__' is the name of the scope in which top-level code executes.
 # See https://docs.python.org/3.4/library/__main__.html for explanation
+
 if __name__ == "__main__":
     main()
