@@ -6,7 +6,8 @@ from items import *
 from gameparser import *
 from random import *
 from intro_screen import *
-from GameOver import *
+from game_over import *
+from exit_timer import *
 
 
 
