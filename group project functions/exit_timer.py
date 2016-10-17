@@ -10,3 +10,4 @@ if has_key = True:
         print("30 SECONDS, GET A MOVE ON")
         time.sleep(30)
 gameover()
+#This code 'should' work as a timer once the user has obtained the key, but I can't test it atm with the full game. I need to modify the game_over function as well.
