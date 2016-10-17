@@ -5,7 +5,7 @@ from player import *
 from items import *
 from gameparser import *
 from random import *
-from intro_animation import *
+from intro_screen import *
 from GameOver import *
 
 
@@ -346,7 +346,7 @@ def move(exits, direction):
 
 # This is the entry point of our program
 def main():
-   Introanimation()
+   intro_animation()
    # Main game loop
    while True:
 
