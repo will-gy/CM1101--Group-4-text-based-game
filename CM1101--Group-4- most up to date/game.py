@@ -25,11 +25,12 @@ def Guard_in_the_room():
     random_number = randint(0,3)
 
     # guard can only appear if not in cells or courtyard
-    if current_room != rooms["Cell A"] or rooms["Cell B"] or rooms["Courtyard"]:
+    if current_room == rooms["Cell A"] or rooms["Cell B"] or rooms["Courtyard"]:
+        pass
+    else:
         if guard_probs == random_number:
             guard = True
-        
-
+       
 
 
 def list_of_items(items):
