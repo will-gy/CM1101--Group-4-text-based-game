@@ -22,7 +22,7 @@ def Guard_in_the_room():
 # sets the boolean value for guard on 10% propability
     global guard
 
-    random_number = 1
+    random_number = randint(0,3)
 
     # guard can only appear if not in cells or courtyard
     if current_room != rooms["Cell A"] or rooms["Cell B"] or rooms["Courtyard"]:
@@ -194,17 +194,12 @@ def execute_take(item_id):
     z=0
     b=0
     for x in current_room["items"]:
-     if item_id == x["id"]:
-      if x["id"] == "soap":
-          print ("game over")
-          gameover()
-          exit()
-
-      inventory.append(x)
-      h = current_room["items"]
-      del h[z]
-      b= 1
-     z = z +1
+        if item_id == x["id"]:
+            inventory.append(x)
+            h = current_room["items"]
+            del h[z]
+            b= 1
+        z = z +1
     if b == 0:
         print("you cannot take that")
 
@@ -228,9 +223,13 @@ def execute_drop(item_id):
     b =0
     for x in inventory:
         if item_id == x["id"]:
+            if x["id"] == "soap":
+                game_over("You dropped the soap.")
+                exit()
             inventory.remove(x)
             b = b +1
             current_room["items"].append(x)
+
 
     if b == 0:
         print("you cannot drop that")
