@@ -20,3 +20,5 @@ def game_over(death_message):
 		print()                                       
 
 	print(str(death_message))
+
+#When you call the game_over function you must enter a string (in quotation marks) to be displayed after the game over text
