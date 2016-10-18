@@ -228,7 +228,7 @@ def execute_drop(item_id):
     b =0
     for x in inventory:
         if item_id == x["id"]:
-            if x["id"] == "soap"
+            if x["id"] == "soap":
                 gameover("You just dropped the soap.")
                 exit()
             inventory.remove(x)
