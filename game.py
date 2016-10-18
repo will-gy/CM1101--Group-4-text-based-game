@@ -144,7 +144,7 @@ def is_valid_exit(exits, chosen_exit):
     """This function checks, given a dictionary "exits" (see map.py) and
     a players's choice "chosen_exit" whether the player has chosen a valid exit.
     It returns True if the exit is valid, and False otherwise. Assume that
-    the name of the exit has been normalised by the function normalise_input().
+    the name of the exit has been lised by the function normalise_input().
     For example:
 """
     return chosen_exit in exits
@@ -157,6 +157,7 @@ def execute_go(direction):
     moving). Otherwise, it prints "You cannot go there."
     """
     global current_room,warden
+    
     if current_room["name"] == "Courtyard":
         warden = True
     if guard is False and warden is False:
@@ -337,10 +338,10 @@ def execute_command(command):
     if 0 == len(command):
         return
 
-    if command[0] == "go":
-        
+    if command[0] == "go":     
 #        Guard_in_the_room()  #check's if guard in room
-        if len(command) > 1:
+        valid = is_valid_exit(current_room["exits"],command[1])
+        if len(command) > 1 and valid is True:
             execute_go(command[1])
         else:
             print("Go where?")
