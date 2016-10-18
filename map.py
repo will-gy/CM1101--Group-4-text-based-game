@@ -35,7 +35,7 @@ room_closet = {
 
     "description":
     """You step into the small cleaning closet and it's full of cleaning products and equipment. 
-You also notice a janitor’s overall hanging on the back of the door. From here you can go 
+You also notice a janitor's overall hanging on the back of the door. From here you can go 
 east to Cell B or west to Cell A.""",
 
     "exits": {"east": "Cell B", "west": "Cell A"},
@@ -82,7 +82,7 @@ and lifeless. There are large watchtowers overlooking the courtyard but none
 of them seem to be manned at the moment. In the centre is some gym equipment 
 and the outside is surrounded by benches. One of the benches seems to have a 
 figure sat on it. You can travel north to the Kitchen, east to the Shower or 
-south to the Warden’s Office.""",
+south to the Warden's Office.""",
     
    "exits": {"north": "Kitchen", "east": "Shower", "south": "Warden's Office"},
 
@@ -93,10 +93,10 @@ room_warden = {
     "name": "Warden's Office",
 
     "description":
-    """The Warden’s office is very smart with shelves spread around the room holding 
-books and other important looking documents. In the centre on the room there’s a 
+    """The Warden's office is very smart with shelves spread around the room holding 
+books and other important looking documents. In the centre on the room there's a 
 large desk with draws overflowing with paperwork. On the south side of the room has 
-a door with the words fire escape written above it. To the north of the room there’s 
+a door with the words fire escape written above it. To the north of the room there's 
 an exit that leads back to the courtyard.""",
 
     "exits": {"north": "Courtyard", "south": "Exit"},
@@ -109,8 +109,8 @@ room_exit = {
 
     "description":
     """You manage to sneak out of the fire escape which leads to the employee car park. 
-You hop into the Warden’s car and drive towards to the exit of the prison. Luckily 
-the guards don’t bother checking who’s inside and they open up the gates. You drive 
+You hop into the Warden's car and drive towards to the exit of the prison. Luckily 
+the guards don't bother checking who's inside and they open up the gates. You drive 
 away from the prison with a smirk on your face and with the feeling of freedom.""",
 
     "exits": {"north": "Warden's Office"},
