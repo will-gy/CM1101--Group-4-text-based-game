@@ -22,7 +22,7 @@ def Guard_in_the_room():
 # sets the boolean value for guard on 10% propability
     global guard
 
-    random_number = randint(0,3)
+    random_number = randint(1,3)
 
     # guard can only appear if not in cells or courtyard
     if current_room == rooms["Cell A"] or current_room==rooms["Cell B"] or current_room==rooms["Courtyard"]:
@@ -30,7 +30,8 @@ def Guard_in_the_room():
     else:
         if guard_probs == random_number:
             guard = True
-       
+        
+
 
 
 def list_of_items(items):
@@ -96,6 +97,7 @@ def print_room(room):
         print("UH OH, YOU HAVE RUN INTO A GUARD!\n")
         print_tricks()
         print_weapons()
+        print()
 
     # if guard not in room, display room description
     else:
@@ -133,15 +135,16 @@ def print_menu(exits, room_items, inv_items):
     related to items: for each item in the room print
 
     """
-    print("You can:")
-    # Iterate over available exits
-    for direction in exits:
-        # Print the exit name and where it leads to
-        print_exit(direction, exit_leads_to(exits, direction))
-    for it in room_items:
-        print ("TAKE " + (it["id"]).upper() + " to take " + it["name"] + ".")
-    for pog in inv_items:
-        print ("DROP " + (pog["id"]).upper() + " to drop " + pog["name"] + ".")
+    if guard is False:
+     print("You can:")
+     # Iterate over available exits
+     for direction in exits:
+         # Print the exit name and where it leads to
+         print_exit(direction, exit_leads_to(exits, direction))
+     for it in room_items:
+         print ("TAKE " + (it["id"]).upper() + " to take " + it["name"] + ".")
+     for pog in inv_items:
+         print ("DROP " + (pog["id"]).upper() + " to drop " + pog["name"] + ".")
     
     print("\nWhat do you want to do?\n")
 
@@ -163,7 +166,8 @@ def execute_go(direction):
     (and prints the name of the room into which the player is
     moving). Otherwise, it prints "You cannot go there."
     """
-    global current_room,warden
+    global current_room
+    global warden
     
     if current_room["name"] == "Courtyard":
         warden = True
@@ -195,12 +199,17 @@ def execute_take(item_id):
     z=0
     b=0
     for x in current_room["items"]:
-        if item_id == x["id"]:
-            inventory.append(x)
-            h = current_room["items"]
-            del h[z]
-            b= 1
-        z = z +1
+     if item_id == x["id"]:
+      if x["id"] == "soap":
+          print ("game over")
+          gameover()
+          exit()
+
+      inventory.append(x)
+      h = current_room["items"]
+      del h[z]
+      b= 1
+     z = z +1
     if b == 0:
         print("you cannot take that")
 
@@ -224,13 +233,9 @@ def execute_drop(item_id):
     b =0
     for x in inventory:
         if item_id == x["id"]:
-            if x["id"] == "soap":
-                game_over("You dropped the soap.")
-                exit()
             inventory.remove(x)
             b = b +1
             current_room["items"].append(x)
-
 
     if b == 0:
         print("you cannot drop that")
@@ -277,37 +282,25 @@ def print_tricks():
 #print_tricks()
 
 
-def execute_trick(trick_item):
-    """this function takes a weapon as an input, check if it's in your inventory, looks up 
-    damage value from item dictionary, and multiplies it by a random number 1-5, then updates
-    guard to False if more than 20. """
-    
-    global guard
+def execute_trick():
+    global guard,bypass
+    item = item_disguise
+    room_inventory = current_room["items"]
 
-    # set chance as random integer between 1-5
-    chance = randint(1,5)
+    if item in room_inventory:
+        trick_probability = 6 #60% probablity of tricking guard with the disguise on.
+    else:
+        trick_probability = 2 #20% probability of tricking guard without the disguise.
 
-    # if weapon used is bare hands, then set damage as 1 and test
-    if trick_item == "charm":
-      if chance + 1 >= 5:
-        print("You have tricked a guard.")
-      else:
-        go_back()
+    random_int = randint(1,trick_probability)
+
+    if random_int != int(trick_probability):
+        return go_back()
 
     else:
-      #loop through items in inventory looking for weapon id that matches user input
-      for item in inventory:
-          if item["id"] == trick_item:
-              
-              #guard dies if chance * item damage is greater than 20
-              if item["trick"] * chance > 20:
-                  guard = False
-                  print("You have tricked a guard")
-              else:
-                  go_back()
-
-#execute_trick("disguise")
-
+        print("You successfully tricked the guard. Continue to the next room")
+        guard = False
+        bypass = True
 
 #execute_trick()   
 
@@ -318,7 +311,8 @@ def execute_kill(weapon):
     damage value from item dictionary, and multiplies it by a random number 1-5, then updates
     guard to False if more than 20. """
     
-    global guard,bypass
+    global guard
+    global bypass
 
     # set chance as random integer between 1-5
     chance = randint(1,5)
@@ -344,7 +338,7 @@ def execute_kill(weapon):
                   print("game over")
 
 
-#execute_kill("shank")
+
 
 
 def execute_command(command):
