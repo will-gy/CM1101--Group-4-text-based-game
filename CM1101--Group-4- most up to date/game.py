@@ -276,25 +276,37 @@ def print_tricks():
 #print_tricks()
 
 
-def execute_trick():
-    global guard,bypass
-    item = item_disguise
-    room_inventory = current_room["items"]
+def execute_trick(trick_item):
+    """this function takes a weapon as an input, check if it's in your inventory, looks up 
+    damage value from item dictionary, and multiplies it by a random number 1-5, then updates
+    guard to False if more than 20. """
+    
+    global guard
 
-    if item in room_inventory:
-        trick_probability = 6 #60% probablity of tricking guard with the disguise on.
+    # set chance as random integer between 1-5
+    chance = randint(1,5)
+
+    # if weapon used is bare hands, then set damage as 1 and test
+    if trick_item == "charm":
+      if chance + 1 >= 5:
+        print("You have tricked a guard.")
+      else:
+        go_back()
+
     else:
-        trick_probability = 2 #20% probability of tricking guard without the disguise.
+      #loop through items in inventory looking for weapon id that matches user input
+      for item in inventory:
+          if item["id"] == trick_item:
+              
+              #guard dies if chance * item damage is greater than 20
+              if item["trick"] * chance > 20:
+                  guard = False
+                  print("You have tricked a guard")
+              else:
+                  go_back()
 
-    random_int = randint(1,trick_probability)
+#execute_trick("disguise")
 
-    if random_int != int(trick_probability):
-        return go_back()
-
-    else:
-        print("You successfully tricked the guard. Continue to the next room")
-        guard = False
-        bypass = True
 
 #execute_trick()   
 
