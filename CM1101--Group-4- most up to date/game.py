@@ -7,7 +7,7 @@ from gameparser import *
 from random import *
 from Intro import *
 from game_over import *
-
+import time
 
 
 guard_probs = 1
@@ -15,12 +15,14 @@ guard = False
 warden = False  #boolean values for guard and warden
 has_key = False #boolean value for the exit key
 
+bypass = False
+
 
 def Guard_in_the_room():
 # sets the boolean value for guard on 10% propability
     global guard
 
-    random_number = randint(0,3)
+    random_number = 1
 
     # guard can only appear if not in cells or courtyard
     if current_room != rooms["Cell A"] or rooms["Cell B"] or rooms["Courtyard"]:
@@ -70,11 +72,15 @@ def print_inventory_items(items):
 
 
 def print_room(room):
-
+    global bypass
     # display room name
     print()
     print(room["name"].upper())
     print()
+    if bypass is False:
+     Guard_in_the_room()
+    else:
+        bypass = False
 
     if room["name"] == "Courtyard":
         global warden
@@ -188,12 +194,17 @@ def execute_take(item_id):
     z=0
     b=0
     for x in current_room["items"]:
-        if item_id == x["id"]:
-            inventory.append(x)
-            h = current_room["items"]
-            del h[z]
-            b= 1
-        z = z +1
+     if item_id == x["id"]:
+      if x["id"] == "soap":
+          print ("game over")
+          gameover()
+          exit()
+
+      inventory.append(x)
+      h = current_room["items"]
+      del h[z]
+      b= 1
+     z = z +1
     if b == 0:
         print("you cannot take that")
 
@@ -217,13 +228,9 @@ def execute_drop(item_id):
     b =0
     for x in inventory:
         if item_id == x["id"]:
-            if x["id"] == "soap":
-                game_over("You dropped the soap.")
-                exit()
             inventory.remove(x)
             b = b +1
             current_room["items"].append(x)
-
 
     if b == 0:
         print("you cannot drop that")
@@ -271,7 +278,7 @@ def print_tricks():
 
 
 def execute_trick():
-    global guard
+    global guard,bypass
     item = item_disguise
     room_inventory = current_room["items"]
 
@@ -288,6 +295,7 @@ def execute_trick():
     else:
         print("You successfully tricked the guard. Continue to the next room")
         guard = False
+        bypass = True
 
 #execute_trick()   
 
@@ -298,7 +306,7 @@ def execute_kill(weapon):
     damage value from item dictionary, and multiplies it by a random number 1-5, then updates
     guard to False if more than 20. """
     
-    global guard
+    global guard,bypass
 
     # set chance as random integer between 1-5
     chance = randint(1,5)
@@ -318,6 +326,7 @@ def execute_kill(weapon):
               #guard dies if chance * item damage is greater than 20
               if item["damage"] * chance > 20:
                   guard = False
+                  bypass = True
                   print("You have killed a guard")
               else:
                   print("game over")
@@ -365,7 +374,7 @@ def execute_command(command):
 
     elif command[0] == "kill":
         if len(command)>1:
-            execute_kill()
+            execute_kill(command[1])
         else:
             print("Kill with what?")
 
