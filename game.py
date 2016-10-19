@@ -170,18 +170,21 @@ def execute_go(direction):
     if current_room["name"] == "Courtyard":
       warden = True
       # run warden()
+    
+    # if player doesn't have key and current room is courtyard and direction is south to warden's office
+    if has_key == False and current_room["name"] == "Courtyard" and direction == "south":
+      print("\nYou cannot open warden's office without the key which you know is on the warden...\n")
+
+    elif guard == True:
+      print("\nYOU CANNOT RUN FROM THE GUARD\n")
 
     # if guard is false, then you can leave the room
-    if guard is False:
+    elif guard is False:
       current = current_room["exits"][direction]
       current_room = rooms[current]
       return current_room
     
-    # guard is true- cannot run from guard
-    else:
-      print("\nYOU CANNOT RUN FROM THE GUARD\n")
     
-
 
 def execute_steal():
     global warden
