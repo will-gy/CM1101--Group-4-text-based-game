@@ -12,7 +12,7 @@ a small window.
 From your knowledge there's an exit south that leads to the Kitchen and 
 a Cleaning Closet to the east. But you also notice a mysterious door to the west.""",
 
-    "exits": {"west": "Dead End", "east": "Cleaning Closet", "south": "Kitchen"},
+    "exits": {"west": "Library", "east": "Cleaning Closet", "south": "Kitchen"},
 
     "items": []
 }
@@ -28,7 +28,7 @@ be taken from the cell.
 You know that to the west there's a Cleaning Closet, 
 to the south is the Showers. But you are unsure of what is to the east.""",
 
-    "exits":  {"west": "Cleaning Closet", "east": "Dead End", "south": "Shower"},
+    "exits":  {"west": "Cleaning Closet", "east": "Library", "south": "Shower"},
 
     "items": []
 }
@@ -128,14 +128,18 @@ away from the prison with a smirk on your face and with the feeling of freedom."
     "items": []
 }
 
-room_deadend = {
-    "name": "Mystery Room",
+room_library = {
+    "name": "Library",
 
     "description":
-    """
-    """,
+    """You enter the mysterious room and realise that this is the prison library.
+It looks barely ever used as all the books are covered in dust and some are still
+in boxes around the room. There's lots of paper around the room and the desks are
+covered in important looking documents.
 
-    "exits": {"east": "Cell A", },
+East heads back to Cell B and the west leads to Cell A.""",
+
+    "exits": {"east": "Cell B", "west": "Cell A" },
 
     "items": [item_documents]
 }
@@ -149,6 +153,6 @@ rooms = {
     "Shower": room_shower,
     "Courtyard": room_courtyard,
     "Warden's Office": room_warden,
-    "Dead End": room_deadend,
+    "Library": room_library,
     "Exit": room_exit
 }
