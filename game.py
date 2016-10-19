@@ -322,7 +322,7 @@ def execute_trick(trick_item):
     if trick_item == "charm":
       if chance + 1 >= 5:
         guard = False
-        print("You have tricked a guard.")
+        print("You have successfully tricked the guard!")
       else:
         guard = False
         go_back()
