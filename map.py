@@ -88,7 +88,8 @@ room_courtyard = {
    """The courtyard is lit by the moon in the night sky and seems eerily quiet
 and lifeless. There are large watchtowers overlooking the courtyard but none 
 of them seem to be manned at the moment. In the centre is some gym equipment 
-and the outside is surrounded by benches.
+and the outside is surrounded by benches. One of the benches seems to have a 
+figure sat on it.
 
 You can go north to the Kitchen, east to the Shower or south to the Warden's Office.""",
     

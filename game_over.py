@@ -13,7 +13,7 @@ def game_over(death_message):
 #	print(str(death_message))
 
 	# where 90 is the screen width
-	print("\n"+death_message.center(70))
+	print("\n"+death_message.center(80))
 
 	go_split = game_over_message.split('\n')
 	for x in go_split:

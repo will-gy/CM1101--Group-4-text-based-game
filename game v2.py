@@ -10,10 +10,11 @@ from random import *
 import time
 
 
-guard = False   # guard present if True
-warden = False  # warden present if True
-has_key = False # key to warden's office in possession if True
-bypass = False  # ???
+
+guard = False   # boolean value for guard
+warden = False  # boolean value for warden
+has_key = False # boolean value for the exit key
+bypass = False
 
 
 def Guard_in_the_room():
@@ -30,55 +31,57 @@ def Guard_in_the_room():
     else:
       if random_number == 1:
         guard = True
-        
+
 
 
 def list_of_items(items):
 
-    """This function takes a list of items (see items.py for the definition) and
-    returns a comma-separated list of item names (as a string)."""
+    """This function takes a list of items and returns a comma-separated list of 
+    item names (as a string). """
 
     empt_str = ""
     place_ho = []
+
     for x in items:
         empt_str = (x["name"])
         place_ho.append(empt_str)
-    liststr = ", ".join(place_ho)
-    return liststr
+
+    list_str = ", ".join(place_ho)
+    return list_str
+
 
 def print_room_items(room):
     """This function takes a room as an input and nicely displays a list of items
     found in this room (followed by a blank line). If there are no items in
     the room, nothing is printed. See map.py for the definition of a room, and
     items.py for the definition of an item. This function uses list_of_items()
-    to produce a comma-separated list of item names. For example:
-    """
-    pass
+    to produce a comma-separated list of item names."""
+    
     item_str = list_of_items(room["items"])
     if item_str != "":
-        print ("There is " + item_str + " here.\n")
+        print("There is " + item_str + " here.\n")
 
 
 def print_inventory_items(items):
     """This function takes a list of inventory items and displays it nicely, in a
     manner similar to print_room_items(). The only difference is in formatting:
-    print "You have ..." instead of "There is ... here."."""
-
+    print "You have ..." instead of "There is ... here.". """
+    
     item_str = list_of_items(items)
     print ("You have " + item_str + ".\n" )
 
 
 def print_room(room):
     global bypass
-
+    
     # display room name
     print()
     print(room["name"].upper())
     print()
-
+    
+    # bypass is set to true when ??
     if bypass is False:
       Guard_in_the_room()
-
     else:
       bypass = False
 
@@ -87,26 +90,26 @@ def print_room(room):
       warden = True
       print("""The warden is standing in the far corner, but he hasn't seen you.
 You know he has the key you need to escape...\n""")
-
+        
     # if guard in room, print weapon / trick actions
     if guard == True:
-        print("UH OH, YOU HAVE RUN INTO A GUARD!\n")
-        print_tricks()
-        print_weapons()
-        print()
+      print("UH OH, YOU HAVE RUN INTO A GUARD!\n")
+      print_tricks()
+      print_weapons()
+      print()
 
     # if guard not in room, display room description
     else:
-        print(room["description"])
-        print()
-        print_room_items(room)
+      print(room["description"])
+      print()
+      print_room_items(room)
 
 
 
 def exit_leads_to(exits, direction):
     """This function takes a dictionary of exits and a direction (a particular
     exit taken from this dictionary). It returns the name of the room into which
-    this exit leads."""
+    this exit leads. """
 
     return rooms[exits[direction]]["name"]
 
@@ -114,7 +117,7 @@ def exit_leads_to(exits, direction):
 def print_exit(direction, leads_to):
     """This function prints a line of a menu of exits. It takes a direction (the
     name of an exit) and the name of the room into which it leads (leads_to),
-    and should print a menu line. """
+    and should print a menu line."""
 
     print("GO " + direction.upper() + " to " + leads_to + ".")
 
@@ -129,23 +132,19 @@ def print_menu(exits, room_items, inv_items):
     using the function exit_leads_to(). Then, it should print a list of commands
     related to items. """
 
-    # print normal menu only if guard = false
     if guard is False:
       print("You can:")
-
-      # iterate over available exits and print exit and where it leads
+      # Iterate over available exits
       for direction in exits:
+        # Print the exit name and where it leads to
         print_exit(direction, exit_leads_to(exits, direction))
-
-      # iterate over items in room and print take commands
       for item in room_items:
         print("TAKE " + (item["id"]).upper() + " to take " + item["name"] + ".")
-
-      # iterate over items in inventory and print drop commands
       for item in inv_items:
         print("DROP " + (item["id"]).upper() + " to drop " + item["name"] + ".")
-    
+      
       print("\nWhat do you want to do?\n")
+
 
 
 def is_valid_exit(exits, chosen_exit):
@@ -161,36 +160,39 @@ def execute_go(direction):
     """This function, given the direction (e.g. "south") updates the current room
     to reflect the movement of the player if the direction is a valid exit
     (and prints the name of the room into which the player is
-    moving). Otherwise, it prints "You cannot go there." """
-
+    moving). Otherwise, it prints "You cannot go there."
+    """
     global current_room
     global warden
-    
-    # if current_room is courtyard, then warden is true
+    global guard
+
+    # if you're in the courtyard, sets warden to true    
     if current_room["name"] == "Courtyard":
       warden = True
-      # run warden()
+      # call warden function?
 
-    # if guard is false, then you can leave the room
+    # if no guard in the room- update current room
     if guard is False:
-      current = current_room["exits"][direction]
-      current_room = rooms[current]
+      new = current_room["exits"][direction]
+      current_room = rooms[new]
       return current_room
-    
-    # guard is true- cannot run from guard
+
     else:
-      print("\nYOU CANNOT RUN FROM THE GUARD\n")
-    
+      print ("\nYOU CANNOT RUN FROM THE GUARD\n")
+      new_input = get_user_input()
+      return new_input
+
 
 
 def execute_steal():
+
     global warden
     if random.randint(0,100)<20:
-      has_key=True
-      return has_key
-      warden=False
+        has_key=True
+        return has_key
+        warden=False
     else:
-      go_back()
+        go_back()
 
 
 def execute_take(item_id):
@@ -199,89 +201,69 @@ def execute_take(item_id):
     there is no such item in the room, this function prints
     "You cannot take that."
     """
-    index = 0
-    if_test = 0
+    z=0
+    b=0
+    for x in current_room["items"]:
+     if item_id == x["id"]:
+      if x["id"] == "soap":
+          print ("game over")
+          gameover()
+          exit()
 
-    # loop through item dictionaries in current room
-    for item in current_room["items"]:
-
-      # if given item matches item["id"]
-      if item_id == item["id"]:
-
-        # add item to inventory
-        inventory.append(item)
-
-        # delete list item with index
-        item_id_dictionary = current_room["items"]
-        del item_id_dictionary[index]
-        
-        # print statement
-        print("\nYou took " + item["name"] + ".")
-
-        # increment if_test to show that if was run i.e. item in room
-        if_test = 1
-
-      # increment z to give list index for current 
-      index = index + 1
-
-    # if test == 0, item wasn't found so it loop didn't run- item not in room
-    if if_test == 0:
-      print("\nYou cannot take that.\n")
-
-
-
-def execute_drop(item_id):
-  """This function takes an item_id as an argument and moves this item from the
-  player's inventory to list of items in the current room. However, if there is
-  no such item in the inventory, this function prints "You cannot drop that."
-  """
-  b = 0
-  
-  # loop over items in inventory
-  for item in inventory:
-    
-    # if item input matches item id (i.e. item in inventory)
-    if item_id == item["id"]:
-      
-      # if item is soap-
-      if item["id"] == "soap":
-        game_over("You dropped the soap. NEVER DROP THE SOAP IN PRISON.")
-
-      # otherwise remove item from inventory
-      inventory.remove(item)
-
-      # add item to current room items list
-      current_room["items"].append(item)
-
-      # print message
-      print("\nYou dropped " + item["name"] + ".")
-      # increment b if item found
-      b = 1
-
-  # if b is 0 then item not in inventory
-  if b == 0:
-    print("\nYou cannot drop that.\n")
-
-
+      inventory.append(x)
+      h = current_room["items"]
+      del h[z]
+      b= 1
+     z = z +1
+    if b == 0:
+        print("\nYou cannot take that\n")
+        get_user_input()
 
 
 
 def go_back():
-  global current_room
-  current_room = start_room
-  print()
-  print("He didn't believe you and you've been returned to your cell. Bad luck.\n")
+    """ This function returns you to your cell if you attempt to trick/steal and fail """
 
+    global current_room
+    current_room = start_room
+    print("\nHe didn't believe you and you've been returned to your cell. Bad luck.\n")
+
+
+
+def execute_drop(item_id):
+    """This function takes an item_id as an argument and moves this item from the
+    player's inventory to list of items in the current room. However, if there is
+    no such item in the inventory, this function prints "You cannot drop that."
+    """
+    b =0
+    for x in inventory:
+        if item_id == x["id"]:
+            inventory.remove(x)
+            b = b +1
+            current_room["items"].append(x)
+
+    if b == 0:
+        print("\nYou cannot drop that\n")
+        get_user_input()
+
+
+
+#if guard = True:
+#  deal_with_guard()
+
+def deal_with_guard():
+  print("Uh oh, you've run into a guard!\n")
+
+  print_weapons()
+  print_tricks()
 
 
 def print_weapons():
-  """
-  """
+  """ This function prints a list of any weapons in your inventory and commands to call them """
 
   # loop through items in inventory returning all weapons, i.e. items with damage > 0
   for item in inventory:
     if item["damage"] != 0:
-      # increment kill_count to indicate 1 or more weapon available
       print ("KILL with " + (item["id"]).upper() + " to kill guard with " + item["name"] + ".")
 
   # also gives option to kill with bare hards
@@ -291,8 +273,8 @@ def print_weapons():
 
 
 def print_tricks():
-  """
-  """
+  """ This function prints a list of any trick items in your inventory and commands to call them """
+
   # loop through items in inventory returning all trick items, i.e. items with trick > 0
   for item in inventory:
     if item["trick"] != 0:
@@ -318,28 +300,28 @@ def execute_trick(trick_item):
     # if weapon used is bare hands, then set damage as 1 and test
     if trick_item == "charm":
       if chance + 1 >= 5:
-        guard = False
         print("You have tricked a guard.")
-      else:
         guard = False
+      else:
         go_back()
 
     else:
-      try:
-      # loop through items in inventory looking for weapon id that matches user input
-        for item in inventory:
-          
-          # guard dies if weapon * item damage is greater than 20
-          if item["id"] == trick_item:
-            if item["trick"] * chance > 20:
-              guard = False
-              bypass = True
-              print("You have successfully tricked the guard!")
-            else:
-              guard = False
-              go_back()
-      except:
-          print("test")
+      #loop through items in inventory looking for weapon id that matches user input
+        try:
+            for item in inventory:
+                if item["id"] == trick_item:
+                  
+                  #guard dies if chance * item damage is greater than 20
+                  if item["trick"] * chance > 20:
+                      guard = False
+                      bypass = True
+                      print("You have tricked a guard")
+                  else:
+                      go_back()
+        except:
+            print("test")
+
+
 
 
 def execute_kill(weapon):
@@ -356,29 +338,25 @@ def execute_kill(weapon):
     # if weapon used is bare hands, then set damage as 1 and test
     if weapon == "hands":
       if chance + 1 >= 5:
-        print("\nYou successfuly killed the guard!\n")
-        guard = False
-        bypass = True
+        print("You have killed a guard.")
+        guard = False 
       else:
-        game_over("The guard was stronger than you and you died. Bad luck.")
-        guard = False
+        print("Game over")
+        game_over("death message")
 
     else:
       #loop through items in inventory looking for weapon id that matches user input
       for item in inventory:
-        if item["id"] == weapon:
+          if item["id"] == weapon:
               
-          #guard dies if chance * item damage is greater than 20
-          if item["damage"] * chance > 20:
-            guard = False
-            bypass = True
-            print("\nYou successfuly killed the guard!\n")
-  
-          else:
-            guard = False
-            game_over("The guard was stronger than you and you died. Bad luck.")
-
-
+              #guard dies if chance * item damage is greater than 20
+              if item["damage"] * chance > 20:
+                  print("You have killed the guard")
+                  guard = False
+                  bypass = True
+              else:
+                  print("game over")
+                  game_over("death message")
 
 
 
@@ -394,43 +372,55 @@ def execute_command(command):
         return
 
     if command[0] == "go":     
+#        Guard_in_the_room()  #check's if guard in room
         valid = is_valid_exit(current_room["exits"],command[1])
         if len(command) > 1 and valid is True:
             execute_go(command[1])
         else:
             print("\nGo where?\n")
+            new_input = get_user_input()
+            print(new_input)
+            print(new_input[1])
+            execute_go(new_input[1])
 
     elif command[0] == "take":
         if len(command) > 1:
             execute_take(command[1])
         else:
             print("\nTake what?\n")
+            get_user_input()
 
     elif command[0] == "drop":
         if len(command) > 1:
             execute_drop(command[1])
         else:
             print("\nDrop what?\n")
+            get_user_input()
 
     elif command[0] == "trick":
         if len(command) >1:
             execute_trick(command[1])
         else:
             print("\nTrick with what?\n")
+            get_user_input()
 
     elif command[0] == "kill":
         if len(command)>1:
             execute_kill(command[1])
         else:
             print("\nKill with what?\n")
+            get_user_input()
 
     elif command[0] == "steal":
         if len (command)>1:
             execute_steal()
         else:
-           print ("\nSteal what?\n")
+            print ("\nSteal what?\n")
+            get_user_input()
+
     else:
-        print("\nThis makes no sense.\n")
+        print("\nI don't understand, please try again.\n")
+        get_user_input()
 
 
 def menu(exits, room_items, inv_items):
@@ -445,19 +435,30 @@ def menu(exits, room_items, inv_items):
     # Display menu
     print_menu(exits, room_items, inv_items)
 
-    # Read player's input
+    normalised_user_input = get_user_input()
+
+    return normalised_user_input
+
+
+def get_user_input():
+    # Read player's input and return as normalised list of words
+
     user_input = input("> ")
 
     # Normalise the input
     normalised_user_input = normalise_input(user_input)
+    print(normalised_user_input)
 
     return normalised_user_input
+
 
 
 def move(exits, direction):
     """This function returns the room into which the player will move if, from a
     dictionary "exits" of avaiable exits, they choose to move towards the exit
-    with the name given by "direction"."""
+    with the name given by "direction". For example:
+
+   """
 
     # Next room to go to
     return rooms[exits[direction]]
@@ -465,22 +466,21 @@ def move(exits, direction):
 
 # This is the entry point of our program
 def main():
-
-  # intro_animation()
+#    intro_animation()
     
-  # Main game loop
-  while True:
+    # Main game loop
+    while True:
 
-    # Display game status (room description, inventory etc.)
-    print("\n"*2 + "*" * 90 + "\n" * 2)
-    print_room(current_room)
-    print_inventory_items(inventory)
+        # Display game status (room description, inventory etc.)
+        print("\n"*2 + "*" * 90 + "\n" * 2)
+        print_room(current_room)
+        print_inventory_items(inventory)
 
-    # Show the menu with possible actions and ask the player
-    command = menu(current_room["exits"], current_room["items"], inventory)
+        # Show the menu with possible actions and ask the player
+        command = menu(current_room["exits"], current_room["items"], inventory)
 
-    # Execute the player's command
-    execute_command(command)
+        # Execute the player's command
+        execute_command(command)
 
 
 
@@ -489,4 +489,4 @@ def main():
 # See https://docs.python.org/3.4/library/__main__.html for explanation
 
 if __name__ == "__main__":
-  main()
+    main()
