@@ -26,9 +26,9 @@ def caesar_encrypt():
 		crypt = crypt + text[pos]
 		pos = pos +1
 	print("You look at your stolen key and you see the number " + str(pasw) + " written on it.")
-	print("The encrypted text reads " + str(crypt) + "\n")
+	print("\nThe encrypted text reads " + str(crypt) + "\n")
 
-	user_guess = str(input("Enter your guess \n"))
+	user_guess = str(input("Enter your guess:\n"))
 	user_guess = user_guess.replace(" ", "")
 	user_guess = user_guess.lower()
 	while game_win == False:
