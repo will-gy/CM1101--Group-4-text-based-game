@@ -93,6 +93,8 @@ def print_room(room):
       warden = True
       print("""The warden is standing in the far corner, but he hasn't seen you.
 You know he has the key you need to escape...\n""")
+    else:
+      warden = False
 
     # if guard in room, print weapon / trick actions
     if guard == True:
@@ -108,8 +110,6 @@ You know he has the key you need to escape...\n""")
         print_room_items(room)
     
     if room["name"] == "Warden's Office" and has_key is True:
-#        print(room["description"])
- #       print()
         print("You see a door with a key pad on it and an encrypted text, which you know is a caesar cipher.")
         caesar_encrypt()
 
