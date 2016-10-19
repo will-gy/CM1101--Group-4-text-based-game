@@ -129,7 +129,7 @@ away from the prison with a smirk on your face and with the feeling of freedom."
 }
 
 room_library = {
-    "name": "Library",
+    "name": "Mystery Room",
 
     "description":
     """You enter the mysterious room and realise that this is the prison library.
