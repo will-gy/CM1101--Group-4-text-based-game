@@ -78,7 +78,7 @@ south out to the Courtyard.""",
 
     "exits": {"north": "Cell B", "west": "Kitchen", "south": "Courtyard"},
 
-    "items": [item_soap]
+    "items": [item_soap, item_shank]
 }
 
 room_courtyard = {
