@@ -7,8 +7,7 @@ from gameparser import *
 from intro import *
 from game_over import *
 from random import *
-import time
-
+from caesar_timed import caesar_encrypt
 
 guard = False   # guard present if True
 warden = False  # warden present if True
@@ -23,7 +22,7 @@ def Guard_in_the_room():
     random_number = randint(1,3)
 
     # if current room is cells or courtyard, guard is false
-    if current_room == rooms["Cell A"] or current_room == rooms["Cell B"] or current_room == rooms["Courtyard"]:
+    if current_room == rooms["Cell A"] or current_room == rooms["Cell B"] or current_room == rooms["Courtyard"] or current_room==rooms["Warden's Office"]:
       guard = False
 
     # if not in cells/courtyard, guard appears when random number is equal to 1
@@ -76,7 +75,7 @@ def print_inventory_items(items):
 
 
 def print_room(room):
-    global bypass
+    global bypass,warden
 
     # display room name
     print()
@@ -90,7 +89,6 @@ def print_room(room):
       bypass = False
 
     if room["name"] == "Courtyard":
-      global warden
       warden = True
       print("""The warden is standing in the far corner, but he hasn't seen you.
 You know he has the key you need to escape...\n""")
@@ -109,6 +107,13 @@ You know he has the key you need to escape...\n""")
         print(room["description"])
         print()
         print_room_items(room)
+    if room["name"] == "Warden's Office" and has_key is True:
+        print(room["description"])
+        print()
+        print()
+        print("You see a door with a key pad on it and an encrypted text, which you know is a caesar cipher ")
+        caesar_encrypt()
+
 
 
 
@@ -155,7 +160,7 @@ def print_menu(exits, room_items, inv_items):
         print("DROP " + (item["id"]).upper() + " to drop " + item["name"] + ".")
     
       print("\nWhat do you want to do?\n")
-    if warden is True:
+    if warden is True and has_key is False:
         print ("You can:")
         print_tricks()
         print_weapons()
@@ -445,7 +450,7 @@ def execute_command(command):
             print("\nKill with what?\n")
 
     elif command[0] == "steal":
-        if len (command)>1:
+        if len (command)>1 and command[1] == "key":
             execute_steal()
         else:
            print ("\nSteal what?\n")
@@ -486,7 +491,7 @@ def move(exits, direction):
 # This is the entry point of our program
 def main():
 
-  # intro_animation()
+  intro_animation()
     
   # Main game loop
   while True:

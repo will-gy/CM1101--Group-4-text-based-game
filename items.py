@@ -13,7 +13,6 @@ item_janitor_disguise = {
 }
 
 
-
 item_guard_disguise = {
     "id": "uniform",
     
@@ -105,7 +104,7 @@ item_soap = {
 item_key = {
     "id" : "key",
 
-    "name": "Wardens key",
+    "name": "Warden Kirill’s key",
 
     "damage": 0,
 
