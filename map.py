@@ -45,7 +45,7 @@ From here you can go east to Cell B or west to Cell A.""",
 
     "exits": {"east": "Cell B", "west": "Cell A"},
 
-    "items": [item_disguise]
+    "items": [item_janitor_disguise]
 }
 
 room_kitchen = {
@@ -61,7 +61,7 @@ and finally south there's a large door leading to the Courtyard.""",
 
     "exits": {"south": "Courtyard", "east": "Shower", "north": "Cell A"},
 
-    "items": [item_bknife]
+    "items": [item_bknife, item_chef_disguise]
 }
 
 room_shower = {
@@ -137,7 +137,7 @@ room_deadend = {
 
     "exits": {"east": "Cell A", },
 
-    "items": []
+    "items": [item_documents]
 }
 
 
