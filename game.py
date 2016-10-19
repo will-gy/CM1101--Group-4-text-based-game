@@ -438,12 +438,19 @@ def execute_command(command):
             print("\nDrop what?\n")
 
     elif command[0] == "trick":
+        if guard == False:
+            print("There is no guard here to trick")
+            return
         if len(command) >1:
             execute_trick(command[1])
         else:
             print("\nTrick with what?\n")
 
     elif command[0] == "kill":
+        if guard == False:
+            print("There is no guard here to kill")
+            return
+
         if len(command)>1:
             execute_kill(command[1])
         else:
