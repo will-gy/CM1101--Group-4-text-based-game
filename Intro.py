@@ -1,6 +1,6 @@
 import time
-def Introanimation():
 
+def intro_animation():
 
  intro_title =  \
  """
@@ -13,7 +13,7 @@ def Introanimation():
 
                                       -The Game-
  	"""
-
+  
  intro_split = intro_title.split('\n')
  for x in intro_split:
   print(x)
@@ -24,4 +24,4 @@ for x in range (0, 2):
 	print()
 
 
-
+#intro_animation()

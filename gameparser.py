@@ -16,19 +16,9 @@ def filter_words(words, skip_words):
     """This function takes a list of words and returns a copy of the list from
     which all words provided in the list skip_words have been removed.
     For example:
-
-    >>> filter_words(["help", "me", "please"], ["me", "please"])
-    ['help']
-
     >>> filter_words(["go", "south"], skip_words)
     ['go', 'south']
-
-    >>> filter_words(['how', 'about', 'i', 'go', 'through', 'that', 'little', 'passage', 'to', 'the', 'south'], skip_words)
-    ['go', 'passage', 'south']
-
     """
-    pass
-
     words2 = [x for x in words if x not in skip_words]
     return (words2)
     
@@ -60,23 +50,8 @@ def normalise_input(user_input):
     words from the list of words using the filter_words() function. The
     resulting list of "important" words is returned. For example:
 
-    >>> normalise_input("  Go   south! ")
-    ['go', 'south']
-    >>> normalise_input("!!!  tAkE,.    LAmp!?! ")
-    ['take', 'lamp']
-    >>> normalise_input("HELP!!!!!!!")
-    ['help']
-    >>> normalise_input("Now, drop the sword please.")
-    ['drop', 'sword']
     >>> normalise_input("Kill ~ tHe :-  gObLiN,. wiTH my SWORD!!!")
     ['kill', 'goblin', 'sword']
-    >>> normalise_input("I would like to drop my laptop here.")
-    ['drop', 'laptop']
-    >>> normalise_input("I wish to take this large gem now!")
-    ['take', 'gem']
-    >>> normalise_input("How about I go through that little passage to the south...")
-    ['go', 'passage', 'south']
-
     """
     # Remove punctuation and convert to lower case
     no_punct = remove_punct(user_input).lower()
@@ -84,6 +59,3 @@ def normalise_input(user_input):
     words = no_punct.split()
     output = filter_words(words, skip_words)
     return (output)
-
-
-

@@ -9,7 +9,7 @@ item_disguise = {
 
     "description": 
     """An old Janitor's overalls stained with all kinds of products. 
-    It's a bit worn and old but should help hide you from guards."""
+It's a bit worn and old but should help hide you from guards."""
 }
 
 item_shank = {
@@ -23,8 +23,8 @@ item_shank = {
 
   "description": 
   """It appears to be a sharpened toothbrush. 
-  This has been specifically made to harm people."""
-    }
+This has been specifically made to harm people."""
+}
 
 
 item_bknife = {
@@ -38,8 +38,8 @@ item_bknife = {
 
     "description": 
     """An old looking kitchen knife that has seen better days. 
-    It's so blunt you would be lucky if it cut through butter."""
-    }
+It's so blunt you would be lucky if it cut through butter."""
+}
 
 item_soap = {
     "id" : "soap",
@@ -52,9 +52,9 @@ item_soap = {
 
     "description": 
     """An aged bar of soap that is caked in dirt. 
-    You think it must've been there for years. 
-    ‘I probably shouldn't drop this' you mutter to yourself"""
-    }
+You think it must've been there for years. 
+‘I probably shouldn't drop this' you mutter to yourself."""
+}
 
 item_key = {
     "id" : "key",
@@ -67,5 +67,4 @@ item_key = {
 
     "description" : 
     """An old looking key. It looks as if it could open something important."""
-    }
-
+}

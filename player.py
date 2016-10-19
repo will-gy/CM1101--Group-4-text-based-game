@@ -2,9 +2,10 @@ from items import *
 from map import rooms
 from random import randint
 
-inventory = [item_soap, item_shank, item_disguise]
+inventory = [item_shank, item_disguise]
 
 
+# set start room and current room at start
 f = randint(0,2)
 
 if f ==1:
