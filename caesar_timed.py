@@ -35,15 +35,17 @@ def caesar_encrypt():
 		pos = pos +1
 	print("The key is " + str(pasw))
 	print("The encrypted text reads " + str(crypt))
+	print(x)
+	print(k)
 	user_guess = str(input("Enter your guess \n")) 
 	user_guess = user_guess.replace(" ", "")
 	user_guess = user_guess.lower()
 	while game_win == False:
-		if user_guess != k:
+		if user_guess == k or user_guess == x:
+			game_win == True
+		else:
 			print("Incorect guess, try again")
 			user_guess = str(input("Enter your guess \n")) 
-		else:
-			game_win == True
 	if game_win ==True:
 		return ("you escaped")
 
