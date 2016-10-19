@@ -13,6 +13,7 @@ guard = False   # guard present if True
 warden = False  # warden present if True
 has_key = False # key to warden's office in possession if True
 bypass = False  # ???
+warden_count = 0
 
 
 def Guard_in_the_room():
@@ -92,8 +93,6 @@ def print_room(room):
       warden = True
       print("""The warden is standing in the far corner, but he hasn't seen you.
 You know he has the key you need to escape...\n""")
-    else:
-        warden = False
 
     # if guard in room, print weapon / trick actions
     if guard == True:
@@ -107,11 +106,11 @@ You know he has the key you need to escape...\n""")
         print(room["description"])
         print()
         print_room_items(room)
+    
     if room["name"] == "Warden's Office" and has_key is True:
-        print(room["description"])
-        print()
-        print()
-        print("You see a door with a key pad on it and an encrypted text, which you know is a caesar cipher ")
+#        print(room["description"])
+ #       print()
+        print("You see a door with a key pad on it and an encrypted text, which you know is a caesar cipher.")
         caesar_encrypt()
 
 
@@ -159,12 +158,12 @@ def print_menu(exits, room_items, inv_items):
       for item in inv_items:
         print("DROP " + (item["id"]).upper() + " to drop " + item["name"] + ".")
     
-      print("\nWhat do you want to do?\n")
     if warden is True and has_key is False:
-        print ("You can:")
-        print_tricks()
-        print_weapons()
-        print("STEAL to steal the key")
+ #       print_tricks()
+  #      print_weapons()
+        print("STEAL KEY to steal the key")
+    
+    print("\nWhat do you want to do?\n")
 
 
 def is_valid_exit(exits, chosen_exit):
@@ -208,13 +207,14 @@ def execute_go(direction):
 def execute_steal():
     global warden
     global has_key
-    if True:
+    if randint(0,100)<50:
       has_key = True
       inventory.append(item_key)
       warden=False
-      print("You HAVE SUCCESFULY STOLEN THE KEY FROM THE WARDEN")
+      print("\nYOU HAVE SUCCESFULY STOLEN THE KEY FROM THE WARDEN")
     else:
-     game_over("")
+      warden = False
+      go_back()
 
 
 def execute_take(item_id):
@@ -294,7 +294,7 @@ def go_back():
   global current_room
   current_room = start_room
   print()
-  print("He didn't believe you and you've been returned to your cell. Bad luck.\n")
+  print("\nYou were not successful and you've been returned to your cell. Bad luck.\n")
 
 
 
@@ -306,7 +306,7 @@ def print_weapons():
   for item in inventory:
     if item["damage"] != 0:
       # increment kill_count to indicate 1 or more weapon available
-      print ("KILL with " + (item["id"]).upper() + " to kill guard with " + item["name"] + ".")
+      print("KILL with " + (item["id"]).upper() + " to kill guard with " + item["name"] + ".")
 
   # also gives option to kill with bare hards
   print("KILL with HANDS to attempt to kill the guard with your bare hands.")
@@ -343,7 +343,7 @@ def execute_trick(trick_item):
     if trick_item == "charm":
       if chance + 1 >= 5:
         guard = False
-        print("You have successfully tricked the guard!")
+        print("\nYou have successfully tricked the guard!")
       else:
         guard = False
         go_back()
@@ -358,7 +358,7 @@ def execute_trick(trick_item):
             if item["trick"] * chance > 20:
               guard = False
               bypass = True
-              print("You have successfully tricked the guard!")
+              print("\nYou have successfully tricked the guard!")
             else:
               guard = False
               go_back()

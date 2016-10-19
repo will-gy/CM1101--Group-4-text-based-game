@@ -103,28 +103,13 @@ room_warden = {
     """The Warden's office is very smart with shelves spread around the room holding 
 books and other important looking documents. In the centre on the room there's a 
 large desk with draws overflowing with paperwork. On the south side of the room has 
-a door with the words fire escape written above it.
-
-To the north of the room there's an exit that leads back to the courtyard.""",
+a door with the words fire escape written above it.""",
 
     "exits": {"north": "Courtyard", "south": "Exit"},
 
     "items": []
 }
 
-room_exit = {
-    "name": "Exit",
-
-    "description":
-    """You manage to sneak out of the fire escape which leads to the employee car park. 
-You hop into the Warden's car and drive towards to the exit of the prison. Luckily 
-the guards don't bother checking who's inside and they open up the gates. You drive 
-away from the prison with a smirk on your face and with the feeling of freedom.""",
-
-    "exits": {"north": "Warden's Office"},
-
-    "items": []
-}
 
 room_library = {
     "name": "Library",
@@ -151,6 +136,5 @@ rooms = {
     "Shower": room_shower,
     "Courtyard": room_courtyard,
     "Warden's Office": room_warden,
-    "Library": room_library,
-    "Exit": room_exit
+    "Library": room_library
 }

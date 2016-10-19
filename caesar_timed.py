@@ -25,8 +25,8 @@ def caesar_encrypt():
 		text[pos]=aph[new_position]
 		crypt = crypt + text[pos]
 		pos = pos +1
-	print("You look at your stolen key and you see the number " + str(pasw) + " written on it")
-	print("The encrypted text reads " + str(crypt))
+	print("You look at your stolen key and you see the number " + str(pasw) + " written on it.")
+	print("The encrypted text reads " + str(crypt) + "\n")
 
 	user_guess = str(input("Enter your guess \n"))
 	user_guess = user_guess.replace(" ", "")
@@ -40,7 +40,8 @@ def caesar_encrypt():
 
 		else:
 			print("Incorect guess, try again \n")
-			user_guess = str(input("Enter your guess \n"))
+			user_guess = str(input("Enter your guess:\n"))
+			print()
 	quit()
 
 

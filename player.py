@@ -2,7 +2,7 @@ from items import *
 from map import rooms
 from random import randint
 
-inventory = [item_shank, item_documents, item_chef_disguise]
+inventory = []
 
 
 # set start room and current room at start
