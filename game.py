@@ -94,6 +94,8 @@ def print_room(room):
       warden = True
       print("""The warden is standing in the far corner, but he hasn't seen you.
 You know he has the key you need to escape...\n""")
+    else:
+        warden = False
 
     # if guard in room, print weapon / trick actions
     if guard == True:
@@ -153,6 +155,11 @@ def print_menu(exits, room_items, inv_items):
         print("DROP " + (item["id"]).upper() + " to drop " + item["name"] + ".")
     
       print("\nWhat do you want to do?\n")
+    if warden is True:
+        print ("You can:")
+        print_tricks()
+        print_weapons()
+        print("STEAL to steal the key")
 
 
 def is_valid_exit(exits, chosen_exit):
@@ -195,12 +202,14 @@ def execute_go(direction):
 
 def execute_steal():
     global warden
-    if random.randint(0,100)<20:
-      has_key=True
-      return has_key
+    global has_key
+    if True:
+      has_key = True
+      inventory.append(item_key)
       warden=False
+      print("You HAVE SUCCESFULY STOLEN THE KEY FROM THE WARDEN")
     else:
-      go_back()
+     game_over("")
 
 
 def execute_take(item_id):
