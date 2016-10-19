@@ -43,13 +43,17 @@ def caesar_encrypt():
 	while game_win == False:
 		if user_guess == k or user_guess == x:
 			game_win == True
+			print("you escaped")
+			#return
 		else:
 			print("Incorect guess, try again")
 			user_guess = str(input("Enter your guess \n")) 
-	if game_win ==True:
-		return ("you escaped")
+	quit()
+
 
 t1 = Thread(target = exit_timer)
 t2 = Thread(target = caesar_encrypt)
 t1.start()
-t2.start()  
+t2.start()
+#if game_win == True:
+#	print("you escaped")
