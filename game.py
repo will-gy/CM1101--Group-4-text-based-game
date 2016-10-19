@@ -40,23 +40,27 @@ def list_of_items(items):
 
     empt_str = ""
     place_ho = []
+    
     for x in items:
         empt_str = (x["name"])
         place_ho.append(empt_str)
     liststr = ", ".join(place_ho)
     return liststr
 
+
+
 def print_room_items(room):
     """This function takes a room as an input and nicely displays a list of items
     found in this room (followed by a blank line). If there are no items in
     the room, nothing is printed. See map.py for the definition of a room, and
     items.py for the definition of an item. This function uses list_of_items()
-    to produce a comma-separated list of item names. For example:
-    """
-    pass
+    to produce a comma-separated list of item names."""
+
     item_str = list_of_items(room["items"])
+
     if item_str != "":
-        print ("There is " + item_str + " here.\n")
+      print ("There is " + item_str + " here.\n")
+
 
 
 def print_inventory_items(items):
@@ -65,7 +69,10 @@ def print_inventory_items(items):
     print "You have ..." instead of "There is ... here."."""
 
     item_str = list_of_items(items)
-    print ("You have " + item_str + ".\n" )
+    
+    if item_str != "":
+      print ("You have " + item_str + ".\n" )
+
 
 
 def print_room(room):
