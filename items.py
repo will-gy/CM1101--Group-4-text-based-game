@@ -11,6 +11,12 @@ item_janitor_disguise = {
     """An old Janitor's overalls stained with all kinds of products. 
     It's a bit worn and old but should help hide you from guards."""
 }
+item_key{
+    "id":"key",
+    "name":"Wardens key",
+    "description":
+    """The key to the Wardens office."""
+}
 
 
 item_guard_disguise = {
