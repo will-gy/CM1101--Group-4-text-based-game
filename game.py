@@ -369,6 +369,9 @@ def execute_kill(weapon):
         print("\nYou successfuly killed the guard!\n")
         guard = False
         bypass = True
+        # add guard's unfiform to room items
+        current_room["items"].append(item_guard_disguise)
+
       else:
         game_over("The guard was stronger than you and you died. Bad luck.")
         guard = False
@@ -383,13 +386,11 @@ def execute_kill(weapon):
             guard = False
             bypass = True
             print("\nYou successfuly killed the guard!\n")
-  
+            # add guard's unfiform to room items
+            current_room["items"].append(item_guard_disguise)  
           else:
             guard = False
             game_over("The guard was stronger than you and you died. Bad luck.")
-
-
-
 
 
 def execute_command(command):
