@@ -1,5 +1,5 @@
 item_janitor_disguise = {
-    "id": "janitor's overalls",
+    "id": "overalls",
     
     "name": "a janitor's overalls",
 
@@ -14,7 +14,7 @@ item_janitor_disguise = {
 
 
 item_guard_disguise = {
-    "id": "guard's uniform",
+    "id": "uniform",
     
     "name": "a guard's uniform",
 
@@ -29,13 +29,13 @@ item_guard_disguise = {
 
 
 item_chef_disguise = {
-    "id": "chef's uniform",
+    "id": "apron",
     
     "name": "a chef's uniform",
 
     "damage": 0,
 
-    "trick": 6,
+    "trick": 3,
 
     "description": 
     """New bright white uniform that has been delivered this morning.
@@ -43,7 +43,7 @@ item_chef_disguise = {
 }
 
 item_documents = {
-    "id" : "transfer documents",
+    "id" : "documents",
 
     "name": "prisoner transfer documentation",
 
